@@ -14,6 +14,9 @@ const doctor = {
     password:{
         type: String,
         required: true
+    },
+    url:{
+        type: String,
     }
 }
 

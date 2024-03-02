@@ -30,6 +30,7 @@ const Card = (props) => {
           </div>
           </div>
           </div>
+          <img src={props.doc?'https://media.istockphoto.com/id/177373093/photo/indian-male-doctor.jpg?s=612x612&w=0&k=20&c=5FkfKdCYERkAg65cQtdqeO_D0JMv6vrEdPw3mX1Lkfg=':""} />
         </Paper>
         
     </Grid>

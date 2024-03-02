@@ -80,11 +80,11 @@ const Plogin = async(req, res)=>{
     console.log(req.body);
     const {email, password} = req.body;
     try{
-        const isExist = await Patient.find({email, password});
+        const isExist = await Patient.findOne({email, password});
         console.log(isExist);
         if(isExist){
             const token = await jwt.sign({email, password}, "Phash")
-            res.json({status: true, mess: "logged in", token})
+            res.json({status: true, mess: "logged in", token, name: isExist.name})
         }else{
             res.json({status: false, mess: "email or password is wrong"})
         }

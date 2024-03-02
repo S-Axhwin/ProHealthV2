@@ -38,7 +38,7 @@ export default function SignInSide(props) {
   };
   const [method, setmethod] = React.useState(true)
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={defaultTheme} sx={{marginTop: '100rem'}} >
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid

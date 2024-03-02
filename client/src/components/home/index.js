@@ -13,8 +13,11 @@ const HomePage = ()=>{
         });
         const respond = await res.json();
         console.log(respond);
-        localStorage.setItem("token", JSON.stringify({token: respond.token}))
-        Navigate("/doctors");
+        if(respond.status){
+            localStorage.setItem("token", JSON.stringify({token: respond.token}));
+            localStorage.setItem("name", respond.name)
+            Navigate("/doctors");
+        }
     }
     const reg = async (email, password, name) => {
         const res = await fetch("http://localhost:5002/auth/Preg", {
@@ -26,9 +29,11 @@ const HomePage = ()=>{
         });
         const respond = await res.json();
         console.log(respond);
-        localStorage.setItem("token", JSON.stringify({token: respond.token}))
         if(respond.status){
-            Navigate("/doctors");
+            console.log(respond);
+            localStorage.setItem("token", JSON.stringify({token: respond.token}));
+            localStorage.setItem("name", name) 
+            
         }
     }
 

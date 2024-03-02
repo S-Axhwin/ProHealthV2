@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -21,6 +22,7 @@ const navItems = ['login', 'register'];
 const AuthnavItems = ['BOOKING','DOCTORS', 'ACCOUNT'];
 
 function DrawerAppBar(props) {
+  const navi = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -31,17 +33,22 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        ProHealth
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
+        {!props.auth?(navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={item} />
+            <ListItemText primary={item.toUpperCase()} onClick={()=>{navi(`/`)}}/>
             </ListItemButton>
-          </ListItem>
-        ))}
+          </ListItem>))):(AuthnavItems.map((item) => (
+          <ListItem key={item} disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={item} onClick={()=>{navi(`/${item}`)}}/>
+            </ListItemButton>
+          </ListItem>)))
+        }
       </List>
     </Box>
   );
@@ -69,10 +76,12 @@ function DrawerAppBar(props) {
           >
             MUI
           </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' , gap: '2rem'} }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block' , gap: '2rem'}, display: 'flex', gap: '2rem' }}>
             {props.auth ? AuthnavItems.map((item) => {
-                return <Link to={`/${item.toLowerCase()}`} style={{ margin: '1rem' }}>{item}</Link>
-            }) : <h2>non authed</h2>}
+                return <Link to={`/${item}`} style={{ margin: '1rem' }}>{item}</Link>
+            }) :navItems.map((item) => {
+                return <ListItemText primary={item} onClick={()=>{navi(`/`)}}/>
+            })}
           </Box>
         </Toolbar>
       </AppBar>
